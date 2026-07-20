@@ -8,7 +8,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -16,28 +15,26 @@ jobs:
     - name: Descargar proyecto
       uses: actions/checkout@v4
 
-
     - name: Instalar herramientas
       run: |
         sudo apt update
         sudo apt install -y python3-pip git zip unzip openjdk-17-jdk
         pip3 install --user buildozer cython==0.29.36
 
-
     - name: Aceptar licencias Android
       run: |
-        yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses
+        yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
 
-
-    - name: Instalar Android Build Tools
+    - name: Instalar Android SDK
       run: |
-        $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "platform-tools" "platforms;android-35" "build-tools;35.0.0"
-
+        $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager \
+        "platform-tools" \
+        "platforms;android-35" \
+        "build-tools;35.0.0"
 
     - name: Crear APK
       run: |
         ~/.local/bin/buildozer android debug
-
 
     - name: Guardar APK
       uses: actions/upload-artifact@v4
