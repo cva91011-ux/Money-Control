@@ -1,24 +1,14 @@
 [app]
 
 title = Money Control
-
 package.name = moneycontrol
-
-package.domain = org.moneycontrol
+package.domain = org.money
 
 source.dir = .
 
-source.include_exts = py,png,jpg,jpeg,kv,atlas
-
-version = 1.0
-
-requirements = python3,kivy,sqlite3,matplotlib
+requirements = python3,kivy,matplotlib
 
 orientation = portrait
 
-fullscreen = 0
-
-
-[buildozer]
-
-log_level = 2
+android.api = 35
+android.minapi = 23
