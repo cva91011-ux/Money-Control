@@ -1,0 +1,36 @@
+name: Build APK Money Control
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Descargar proyecto
+      uses: actions/checkout@v4
+
+
+    - name: Instalar herramientas
+      run: |
+        sudo apt update
+        sudo apt install -y python3-pip git zip unzip openjdk-17-jdk
+        pip3 install --user buildozer cython==0.29.36
+
+
+    - name: Crear APK
+      run: |
+        ~/.local/bin/buildozer android debug
+
+
+    - name: Guardar APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: Money-Control-APK
+        path: bin/*.apk
